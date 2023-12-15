@@ -1,0 +1,18 @@
+FROM python:3.9
+
+WORKDIR /app
+
+RUN pip install --upgrade pip
+
+COPY requirements.txt .
+RUN pip install --upgrade pip && pip install -r requirements.txt --verbose
+
+
+COPY . .
+
+# NLTK Downloads
+RUN python -c "import nltk; nltk.download('punkt'); nltk.download('stopwords')"
+
+EXPOSE 8501
+
+CMD ["streamlit", "run", "Class_WebApp_Streamlit.py"]
